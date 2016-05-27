@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="timetableDao">	
+	<insert id="insert" parameterType="com.timetable.vo.Timetable">
+		INSERT INTO timetables
+		( idx , subject , professor , week , time , place )
+		VALUES
+		( #{idx} , #{subject} , #{professor} , #{week} , #{time} , #{place} )
+	</insert>
+	
+	<update id="update" parameterType="com.timetable.vo.Timetable">
+		UPDATE timetables SET
+		idx = #{idx} ,
+		subject = #{subject} ,
+		professor = #{professor} ,
+		week = #{week} ,
+		time = #{time} ,
+		place = #{place}
+		WHERE idx = #{idx}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM timetables
+		WHERE idx = #{idx}
+	</delete>
+	
+	<select id="getAll" resultType="com.timetable.vo.Timetable">
+		SELECT * FROM timetables
+	</select>
+	
+	<select id="getOne" parameterType="int" resultType="com.timetable.vo.Timetable">
+		SELECT * FROM timetables
+		WHERE idx = #{idx}
+	</select>
+	
+	<select id="getBySubject" parameterType="String" resultType="com.timetable.vo.Timetable">
+		SELECT * FROM timetables
+		WHERE subject LIKE CONCAT( '%' , #{subject} , '%' )
+	</select>
+	
+	<select id="getByPlace" parameterType="String" resultType="com.timetable.vo.Timetable">
+		SELECT * FROM timetables
+		WHERE place = #{place}
+	</select>
+</mapper>
